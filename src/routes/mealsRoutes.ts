@@ -151,4 +151,37 @@ export async function mealsRoutes(app: FastifyInstance) {
       meal,
     })
   })
+  app.get('/metrics', async (request, reply) => {
+    const sessionId = request.cookies.sessionId
+
+    const user = await knex('users')
+      .where({ session_id: sessionId })
+      .select('id')
+      .first()
+
+    if (!user) {
+      return reply.status(401).send({ error: 'Unauthorized' })
+    }
+
+    const allMeals = await knex('meals')
+      .where({ userid: user.id, in_diet: true })
+      .orderBy('created_at', 'asc')
+      .select()
+
+    const countOffDiet = await knex('meals')
+      .where({ userid: user.id, in_diet: false })
+      .count('id', { as: 'count' })
+      .first()
+
+    const countAll = await knex('meals')
+      .where({ userid: user.id })
+      .count('id', { as: 'count' })
+      .first()
+
+    return reply.send({
+      totalMeals: countAll?.count,
+      onDiet: allMeals?.length,
+      offDiet: countOffDiet?.count,
+    })
+  })
 }
