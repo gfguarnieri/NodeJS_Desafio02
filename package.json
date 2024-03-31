@@ -1,0 +1,33 @@
+{
+  "name": "nodejs_desafio02",
+  "version": "1.0.0",
+  "description": "Proposta de solução para o Desafio 02 do Curso de Node.JS da Rocketseat.",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsup src --out-dir build",
+    "dev": "tsx watch src/server.ts",
+    "knex": "node --import tsx ./node_modules/.bin/knex",
+    "lint": "eslint src -e .ts --fix",
+    "test": "vitest"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@rocketseat/eslint-config": "^2.2.2",
+    "@types/node": "^20.12.2",
+    "eslint": "^8.57.0",
+    "tsup": "^8.0.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.4.3",
+    "vitest": "^1.4.0"
+  },
+  "dependencies": {
+    "@fastify/cookie": "^9.3.1",
+    "dotenv": "^16.4.5",
+    "fastify": "^4.26.2",
+    "knex": "^3.1.0",
+    "sqlite3": "^5.1.7",
+    "zod": "^3.22.4"
+  }
+}
