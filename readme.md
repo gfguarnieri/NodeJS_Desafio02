@@ -28,6 +28,11 @@ API para controle de dieta diária.
 - [x] Utilizar cookie para identificação dos usuários.
 - [x] Utilizar migration para estruturação das tabelas.
 
+## Testes e2e
+
+- [x] Rotas de Usuário 
+- [ ] Rotas de Refeições;
+
 ## Tecnologias utilizadas
 - Fastify
 - Knex
