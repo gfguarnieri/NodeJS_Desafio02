@@ -23,7 +23,7 @@ export async function mealsRoutes(app: FastifyInstance) {
       .first()
 
     if (!user) {
-      return reply.status(204).send({ error: 'User not found' })
+      return reply.status(404).send({ error: 'User not found' })
     }
 
     const body = createMealBodySchema.parse(request.body)
@@ -73,5 +73,34 @@ export async function mealsRoutes(app: FastifyInstance) {
       in_diet: inDiet,
       created_at: createdAt,
     })
+    return reply.status(204).send()
+  })
+
+  app.delete('/:id', async (request, reply) => {
+    const updateMealParamsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = updateMealParamsSchema.parse(request.params)
+
+    const meal = await knex('meals').where({ id }).first()
+
+    const sessionId = request.cookies.sessionId
+
+    const user = await knex('users')
+      .where({ session_id: sessionId })
+      .select('id')
+      .first()
+
+    if (!meal) {
+      return reply.status(404).send({ error: 'Meal not found' })
+    }
+
+    if (meal?.userid !== user?.id) {
+      return reply.status(401).send({ error: 'Unauthorized' })
+    }
+
+    await knex('meals').where({ id }).delete()
+    return reply.status(204).send()
   })
 }
