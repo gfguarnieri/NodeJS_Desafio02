@@ -96,7 +96,11 @@ export async function mealsRoutes(app: FastifyInstance) {
       return reply.status(404).send({ error: 'Meal not found' })
     }
 
-    if (meal?.userid !== user?.id) {
+    if (!user) {
+      return reply.status(404).send({ error: 'User not found' })
+    }
+
+    if (meal.userid !== user.id) {
       return reply.status(401).send({ error: 'Unauthorized' })
     }
 
