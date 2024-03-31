@@ -168,6 +168,20 @@ export async function mealsRoutes(app: FastifyInstance) {
       .orderBy('created_at', 'asc')
       .select()
 
+    let sequence = 0
+    let maxSequence = 0
+
+    allMeals.forEach((m) => {
+      if (m.in_diet) {
+        sequence++
+        if (sequence > maxSequence) {
+          maxSequence = sequence
+        }
+      } else {
+        sequence = 0
+      }
+    })
+
     const countOffDiet = await knex('meals')
       .where({ userid: user.id, in_diet: false })
       .count('id', { as: 'count' })
@@ -182,6 +196,7 @@ export async function mealsRoutes(app: FastifyInstance) {
       totalMeals: countAll?.count,
       onDiet: allMeals?.length,
       offDiet: countOffDiet?.count,
+      bestSequence: maxSequence,
     })
   })
 }
