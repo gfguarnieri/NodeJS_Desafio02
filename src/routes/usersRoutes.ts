@@ -7,8 +7,9 @@ export async function usersRoutes(app: FastifyInstance) {
   app.post('/', async (request, reply) => {
     const createUserBodySchema = z.object({
       name: z.string(),
-      email: z.string().nullable(),
+      email: z.string(),
     })
+
     const { name, email } = createUserBodySchema.parse(request.body)
 
     let sessionId = request.cookies.sessionId

@@ -6,8 +6,8 @@ API para controle de dieta diária.
 
 ## Requisitos funcionais
 - [x] Deve ser possível criar um usuário
-- [ ] Deve ser possível identificar o usuário entre as requisições
-- [ ] Deve ser possível registrar uma refeição feita, com as seguintes informações:
+- [x] Deve ser possível identificar o usuário entre as requisições
+- [x] Deve ser possível registrar uma refeição feita, com as seguintes informações:
     - Nome
     - Descrição
     - Data e Hora
@@ -23,10 +23,10 @@ API para controle de dieta diária.
     - Melhor sequência de refeições dentro da dieta
 
 ## Regras de negócio
-- [ ] As refeições devem ser relacionadas a um usuário.
+- [x] As refeições devem ser relacionadas a um usuário.
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
-- [ ] Utilizar cookie para identificação dos usuários.
-- [ ] Utilizar migration para estruturação das tabelas.
+- [x] Utilizar cookie para identificação dos usuários.
+- [x] Utilizar migration para estruturação das tabelas.
 ## Tecnologias utilizadas
 
 - Fastify
