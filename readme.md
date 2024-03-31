@@ -5,7 +5,7 @@ Proposta de solução para o Desafio 02 do Curso de Node.JS da Rocketseat.
 API para controle de dieta diária.
 
 ## Requisitos funcionais
-- [ ] Deve ser possível criar um usuário
+- [x] Deve ser possível criar um usuário
 - [ ] Deve ser possível identificar o usuário entre as requisições
 - [ ] Deve ser possível registrar uma refeição feita, com as seguintes informações:
     - Nome
