@@ -13,7 +13,7 @@ API para controle de dieta diária.
     - Data e Hora
     - Está dentro ou não da dieta
 - [x] Deve ser possível editar uma refeição, podendo alterar todos os dados acima
-- [ ] Deve ser possível apagar uma refeição
+- [x] Deve ser possível apagar uma refeição
 - [ ] Deve ser possível listar todas as refeições de um usuário
 - [ ] Deve ser possível visualizar uma única refeição
 - [ ] Deve ser possível recuperar as métricas de um usuário
@@ -27,8 +27,8 @@ API para controle de dieta diária.
 - [ ] O usuário só pode visualizar, editar e apagar as refeições o qual ele criou
 - [x] Utilizar cookie para identificação dos usuários.
 - [x] Utilizar migration para estruturação das tabelas.
-## Tecnologias utilizadas
 
+## Tecnologias utilizadas
 - Fastify
 - Knex
 - Zod
