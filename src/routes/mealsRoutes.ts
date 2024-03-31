@@ -163,8 +163,18 @@ export async function mealsRoutes(app: FastifyInstance) {
       return reply.status(401).send({ error: 'Unauthorized' })
     }
 
-    const allMeals = await knex('meals')
+    const countOffDiet = await knex('meals')
+      .where({ userid: user.id, in_diet: false })
+      .count('id', { as: 'count' })
+      .first()
+
+    const countOnDiet = await knex('meals')
       .where({ userid: user.id, in_diet: true })
+      .count('id', { as: 'count' })
+      .first()
+
+    const allMeals = await knex('meals')
+      .where({ userid: user.id })
       .orderBy('created_at', 'asc')
       .select()
 
@@ -182,11 +192,6 @@ export async function mealsRoutes(app: FastifyInstance) {
       }
     })
 
-    const countOffDiet = await knex('meals')
-      .where({ userid: user.id, in_diet: false })
-      .count('id', { as: 'count' })
-      .first()
-
     const countAll = await knex('meals')
       .where({ userid: user.id })
       .count('id', { as: 'count' })
@@ -194,7 +199,7 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     return reply.send({
       totalMeals: countAll?.count,
-      onDiet: allMeals?.length,
+      onDiet: countOnDiet?.count,
       offDiet: countOffDiet?.count,
       bestSequence: maxSequence,
     })
