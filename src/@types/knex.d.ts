@@ -8,7 +8,7 @@ declare module 'knex/types/tables' {
       name: string
       description: string
       userid: string
-      created_at: string
+      created_at: Date
       in_diet: boolean
     }
     users: {
@@ -16,7 +16,7 @@ declare module 'knex/types/tables' {
       session_id: string
       name: string
       email: string
-      created_at: string
+      created_at: Date
     }
   }
 }

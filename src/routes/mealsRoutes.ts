@@ -10,7 +10,7 @@ export async function mealsRoutes(app: FastifyInstance) {
     const createMealBodySchema = z.object({
       name: z.string(),
       description: z.string(),
-      in_diet: z.boolean(),
+      inDiet: z.boolean(),
     })
 
     const sessionId = request.cookies.sessionId
@@ -23,7 +23,7 @@ export async function mealsRoutes(app: FastifyInstance) {
       .first()
 
     if (!user) {
-      throw new Error('User not found')
+      return reply.status(204).send({ error: 'User not found' })
     }
 
     const body = createMealBodySchema.parse(request.body)
@@ -34,9 +34,44 @@ export async function mealsRoutes(app: FastifyInstance) {
       userid: user.id,
       name,
       description,
-      in_diet: body.in_diet,
+      in_diet: body.inDiet,
     })
 
     return reply.status(201).send()
+  })
+
+  app.put('/:id', async (request, reply) => {
+    const updateMealBodySchema = z.object({
+      name: z.string(),
+      description: z.string(),
+      inDiet: z.boolean(),
+      createdAt: z.coerce.date(),
+    })
+
+    const updateMealParamsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = updateMealParamsSchema.parse(request.params)
+
+    const meal = await knex('meals')
+      .where({
+        id,
+      })
+      .first()
+
+    if (!meal) {
+      return reply.status(404).send({ error: 'Meal not found' })
+    }
+
+    const { name, description, inDiet, createdAt } = updateMealBodySchema.parse(
+      request.body,
+    )
+    await knex('meals').where({ id }).update({
+      name,
+      description,
+      in_diet: inDiet,
+      created_at: createdAt,
+    })
   })
 }
