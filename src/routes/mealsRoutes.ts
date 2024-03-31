@@ -39,7 +39,6 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     return reply.status(201).send()
   })
-
   app.put('/:id', async (request, reply) => {
     const updateMealBodySchema = z.object({
       name: z.string(),
@@ -75,7 +74,6 @@ export async function mealsRoutes(app: FastifyInstance) {
     })
     return reply.status(204).send()
   })
-
   app.delete('/:id', async (request, reply) => {
     const updateMealParamsSchema = z.object({
       id: z.string(),
@@ -123,6 +121,34 @@ export async function mealsRoutes(app: FastifyInstance) {
 
     return reply.send({
       meals: mealsList,
+    })
+  })
+  app.get('/:id', async (request, reply) => {
+    const sessionId = request.cookies.sessionId
+
+    const updateMealParamsSchema = z.object({
+      id: z.string(),
+    })
+
+    const { id } = updateMealParamsSchema.parse(request.params)
+
+    const user = await knex('users')
+      .where({ session_id: sessionId })
+      .select('id')
+      .first()
+
+    if (!user) {
+      return reply.status(401).send({ error: 'Unauthorized' })
+    }
+
+    const meal = await knex('meals').where({ userid: user.id, id }).first()
+
+    if (!meal) {
+      return reply.status(404).send({ error: 'Meal not found' })
+    }
+
+    return reply.send({
+      meal,
     })
   })
 }
