@@ -31,7 +31,7 @@ API para controle de dieta diária.
 ## Testes e2e
 
 - [x] Rotas de Usuário 
-- [ ] Rotas de Refeições;
+- [x] Rotas de Refeições;
 
 ## Tecnologias utilizadas
 - Fastify
