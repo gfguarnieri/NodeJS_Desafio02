@@ -39,3 +39,23 @@ API para controle de dieta diária.
 - Zod
 - Vitest
 - Supertest
+
+## Scripts
+
+Para executar projeto em ambiente de teste
+
+```
+npm run dev
+```
+
+Para executar testes e2e
+
+```
+npm run test
+```
+
+Para criar build para deploy
+
+```
+npm run build
+```
